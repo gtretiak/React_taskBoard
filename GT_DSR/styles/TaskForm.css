@@ -1,0 +1,15 @@
+.task-form {
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.task-form input,
+.task-form select {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    padding: 8px;
+    margin-bottom: 15px;
+}

@@ -1,14 +1,13 @@
 //import { Task } from "../types/types";
-type Status = "TODO" | "IN_PROGRESS" | "DONE";
-interface Task {
-    title:string;
-    status:Status;
-};
+import "../../styles/TaskCard.css"
+import type { DraftTask } from "../types/types"
 
-function TaskCard({title, status}: Task) {
+function TaskCard({title, status, deadline}: DraftTask) {
     return (
-        <div>
-            <h2>Task:{title} - status:{status}</h2>
+        <div className="task-card">
+            <h3>{title}</h3>
+            <h4>{status}</h4>
+            <h5>{deadline}</h5>
         </div>
     );
 }

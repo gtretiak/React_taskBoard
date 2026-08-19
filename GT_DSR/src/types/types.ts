@@ -26,6 +26,12 @@ export interface TagEntry {
   id: string;
   name: string; // normalized lowercase
 };
+export interface DraftTask {
+  id:string;
+  title:string;
+  status:TaskStatus;
+  deadline:string;
+};
 export interface Task {
   id: string;
   title: string;

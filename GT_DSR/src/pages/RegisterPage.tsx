@@ -1,7 +1,7 @@
 function RegisterPage() {
     return (
         <div>
-        <h1>Register placeholder</h1>
+        <h1>Register placeholder (welcome new user)</h1>
         </div>
     );
 }

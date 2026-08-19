@@ -4,6 +4,7 @@ import RegisterPage from './pages/RegisterPage'
 import TasksPage from './pages/TasksPage'
 import Header from './components/Header'
 import NotFoundPage from './pages/NotFoundPage'
+import "../styles/App.css"
 
 function App() {
   return ( 
