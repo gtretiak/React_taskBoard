@@ -20,16 +20,17 @@ function TaskForm({onAdd}:TaskProps) {
     }// event object is supplied by browser/React
     return (
         <form className="task-form" onSubmit={handleSubmit}>
+        <h2>Create task</h2>
         <h4>Title:</h4>
-        <input type="text" value={title} required onChange={(event) => setTitle(event.target.value)}/>
+        <input type="text" placeholder="e.g. Implement the feature we discussed with Tom" value={title} required onChange={(event) => setTitle(event.target.value)}/>
         <h4>Status:</h4>
         <select value={status} onChange={(event) => setStatus(event.target.value as TaskStatus)}>
-            <option value="TODO">TODO</option>
-            <option value="IN_PROGRESS">IN PROGRESS</option>
-            <option value="DONE">DONE</option>
+            <option value="TODO">Todo</option>
+            <option value="IN_PROGRESS">In Progress</option>
+            <option value="DONE">Done</option>
         </select>
         <h4>Deadline:</h4>
-        <input type="text" value={deadline} onChange={(event) => setDeadline(event.target.value)}/>
+        <input type="date" placeholder="DD/MM/YYYY" value={deadline} onChange={(event) => setDeadline(event.target.value)}/>
         <br />
         <button type="submit">Add task</button>
         </form>
