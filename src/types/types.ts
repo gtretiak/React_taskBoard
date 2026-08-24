@@ -31,9 +31,11 @@ export const ASSIGNMENTSTATUS = {
 export type Role = (typeof ROLE)[keyof typeof ROLE]; // taking the key of that object and creating with them
 export type TaskStatus = (typeof TASKSTATUS)[keyof typeof TASKSTATUS];
 export type TaskPriority = (typeof TASKPRIORITY)[keyof typeof TASKPRIORITY];
-export type TaskVisibility = (typeof TASKVISIBILITY)[keyof typeof TASKVISIBILITY];
-export type AssignmentStatus = (typeof ASSIGNMENTSTATUS)[keyof typeof ASSIGNMENTSTATUS];
-  
+export type TaskVisibility =
+  (typeof TASKVISIBILITY)[keyof typeof TASKVISIBILITY];
+export type AssignmentStatus =
+  (typeof ASSIGNMENTSTATUS)[keyof typeof ASSIGNMENTSTATUS];
+
 export interface UserRef {
   id: string;
   nickname: string;

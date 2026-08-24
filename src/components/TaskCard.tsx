@@ -8,6 +8,7 @@ function TaskCard({ title, status, deadline }: DraftTask) {
     <article className="task-card">
       <h3>{title}</h3>
       <div>{status}</div>
+
       <time>{deadline?.toLocaleDateString()}</time>
     </article>
   );
