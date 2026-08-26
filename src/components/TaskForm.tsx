@@ -1,27 +1,29 @@
 import { useState, type SubmitEvent } from "react";
-import type { TaskStatus } from "../types/types";
+import { TASKSTATUS, type TaskStatus } from "../types/types";
 import type { TaskProps } from "../types/TaskForm.types";
 import "../../styles/TaskForm.css";
 
 function TaskForm({ onAdd }: TaskProps) {
   const [title, setTitle] = useState("");
-  const [status, setStatus] = useState<TaskStatus>("TODO");
+  const [status, setStatus] = useState<TaskStatus>(TASKSTATUS.Todo);
   const [deadline, setDeadline] = useState<Date | null>(null);
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     if (deadline !== null) onAdd(title, status, deadline);
     setTitle("");
-    setStatus("TODO");
+    setStatus(TASKSTATUS.Todo);
     setDeadline(null);
   } // event object is supplied by browser/React
 
   return (
     <form className="task-form" onSubmit={handleSubmit}>
+      <h2>Create task</h2>
       <label htmlFor="title">Title:</label>
       <input
         id="title "
         type="text"
+        placeholder="e.g. Implement the feature we discussed with Tom"
         value={title}
         required
         onChange={(event) => setTitle(event.target.value)}
@@ -32,9 +34,9 @@ function TaskForm({ onAdd }: TaskProps) {
         value={status}
         onChange={(event) => setStatus(event.target.value as TaskStatus)}
       >
-        <option value="TODO">TODO</option>
-        <option value="IN_PROGRESS">IN PROGRESS</option>
-        <option value="DONE">DONE</option>
+        <option value={TASKSTATUS.Todo}>Todo</option>
+        <option value={TASKSTATUS.In_progress}>In Progress</option>
+        <option value={TASKSTATUS.Done}>Done</option>
       </select>
       <label htmlFor="deadline">Deadline:</label>
       <input

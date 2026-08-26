@@ -1,7 +1,7 @@
 import "../../styles/Header.css";
 import { NavLink, useNavigate } from "react-router-dom";
 
-const isAuthenticated = false; // temporary - to test routing with mock authentication
+const isAuthenticated = true; // temporary - to test routing with mock authentication
 
 function Header() {
   const navigate = useNavigate();
