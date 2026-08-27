@@ -2,24 +2,28 @@ import { useAuth } from "../CustomHooks/useAuth";
 import { useState, type SubmitEvent } from "react";
 
 function LoginPage() {
-  const { login } = useAuth();
-  const [username, setUsername] = useState("");
+  const Auth = useAuth();
+  const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    login(username, password);
+    try {
+      await Auth.login(nickname, password);
+    } catch (error) {
+      console.error(error);
+    }
   }
   return (
     <div>
       <h1>Welcome!</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="username">User: </label>
+        <label htmlFor="nickname">User: </label>
         <input
           type="text"
-          id="username"
-          value={username}
-          onChange={(event) => setUsername(event.target.value)}
+          id="nickname"
+          value={nickname}
+          onChange={(event) => setNickname(event.target.value)}
           required
         />
         <br />

@@ -26,7 +26,12 @@ function App() {
               accessToken ? <Navigate to="/tasks" replace /> : <LoginPage />
             }
           />
-          <Route path="/register" element={<RegisterPage />} />
+          <Route
+            path="/register"
+            element={
+              accessToken ? <Navigate to="/tasks" replace /> : <RegisterPage />
+            }
+          />
           <Route
             path="/tasks"
             element={
