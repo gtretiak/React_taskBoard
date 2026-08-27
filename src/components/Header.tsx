@@ -1,13 +1,9 @@
 import "../../styles/Header.css";
-import { NavLink, useNavigate } from "react-router-dom";
-
-const isAuthenticated = true; // temporary - to test routing with mock authentication
+import { NavLink } from "react-router-dom";
+import { useAuth } from "../CustomHooks/useAuth";
 
 function Header() {
-  const navigate = useNavigate();
-  function handleLogout() {
-    navigate("/login");
-  }
+  const { accessToken, logout } = useAuth();
 
   return (
     <header className="header">
@@ -15,7 +11,7 @@ function Header() {
         <div>George Targets</div>
         <div>Probably one of the best task boards ever...</div>
       </div>
-      {!isAuthenticated ? (
+      {!accessToken ? (
         <nav className="nav">
           <NavLink
             to="/login"
@@ -38,7 +34,7 @@ function Header() {
           >
             Tasks
           </NavLink>
-          <button type="button" onClick={handleLogout}>
+          <button type="button" onClick={logout}>
             Logout
           </button>
         </nav>

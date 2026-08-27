@@ -4,7 +4,8 @@
   align-items: center;
   padding: 15px 30px;
   border-bottom: 1px solid #ddd;
-  background: white;
+  background: var(--color-background);
+  color: var(--color-text);
 }
 .nav {
   display: flex;
@@ -17,8 +18,8 @@
   padding: 8px 14px;
   border: 1px solid #ccc;
   border-radius: 6px;
-  background: white;
-  color: #222;
+  background: var(--color-background);
+  color: var(--color-text);
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
