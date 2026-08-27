@@ -1,4 +1,4 @@
-const baseUrl = import.meta.env.VITE_API_BASE_URL;
+const baseUrl = process.env.VITE_API_BASE_URL;
 // reading the environment variable baseUrl
 
 export async function apiRequest(endpoint: string, options?: RequestInit) {
