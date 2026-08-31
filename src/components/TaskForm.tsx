@@ -1,8 +1,8 @@
 import { useState, type SubmitEvent } from "react";
-import type { TaskPropsL3 } from "../types/TaskForm.types";
+import type { TaskProps } from "../types/TaskForm.types";
 import "../../styles/TaskForm.css";
 
-function TaskForm({ onAdd }: TaskPropsL3) {
+function TaskForm({ onAdd }: TaskProps) {
   const [title, setTitle] = useState("");
 
   function handleSubmit(event: SubmitEvent<HTMLFormElement>) {

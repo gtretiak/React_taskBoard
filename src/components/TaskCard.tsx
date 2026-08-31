@@ -7,10 +7,10 @@ function TaskCard({ task, onUpdate, onDelete }: TaskCardProps) {
   return (
     <article className="task-card">
       <h3>{task.title}</h3>
-      <label htmlFor="checkbox">
+      <label htmlFor="completed">
         <input
           type="checkbox"
-          id="checkbox"
+          id="completed"
           checked={task.completed}
           onChange={(event) => onUpdate(task.id, event.target.checked)}
         />

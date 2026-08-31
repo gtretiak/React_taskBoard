@@ -4,24 +4,24 @@ import TaskForm from "../components/TaskForm";
 */
 
 import { useEffect, useState } from "react";
-import { type DraftTaskL3 } from "../types/types";
+import { type DraftTask } from "../types/types";
 
 const STORAGE_KEY = "tasks"; // name in localStorage
-function readTasks(): DraftTaskL3[] {
+function readTasks(): DraftTask[] {
   const storedTasks = localStorage.getItem(STORAGE_KEY);
   if (!storedTasks) return [];
   return JSON.parse(storedTasks); // parsing a JSON string to JS object, because React needs JS
 }
 
 export function useLocalTasks() {
-  const [tasks, setTasks] = useState<DraftTaskL3[]>(readTasks);
+  const [tasks, setTasks] = useState<DraftTask[]>(readTasks);
 
   useEffect(() => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks)); // converting JS object into JSON text
   }, [tasks]);
 
   function createTask(title: string) {
-    const newTask: DraftTaskL3 = {
+    const newTask: DraftTask = {
       id: crypto.randomUUID(),
       title,
       completed: false,
