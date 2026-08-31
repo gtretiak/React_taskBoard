@@ -40,16 +40,14 @@ export type AssignmentStatus =
 export interface DraftTask {
   id: string;
   title: string;
-  status: TaskStatus;
-  deadline: Date;
-}
-export interface DraftTaskL3 {
-  id: string;
-  title: string;
   completed: boolean;
 }
+export type TaskProps = {
+  onAdd: (title: string) => void;
+}; // onAdd is a prop that TaskForm receives
+
 export interface TaskCardProps {
-  task: DraftTaskL3;
+  task: DraftTask;
   onUpdate: (id: string, completed: boolean) => void;
   onDelete: (id: string) => void;
 }
