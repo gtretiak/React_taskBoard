@@ -1,42 +1,44 @@
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../Store/authStore";
-import { type SubmitEvent, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { loginSchema, type LoginFormData } from "../ZodSchemas/authSchema";
 
 function LoginPage() {
   const login = useAuthStore((state) => state.login);
   const loading = useAuthStore((state) => state.loading);
-  const error = useAuthStore((state) => state.error);
-  const [nickname, setNickname] = useState("");
-  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const success = await login({ nickname, password });
-    if (success) navigate("/tasks");
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { errors },
+  } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) }); // creating a form instance
+
+  async function onSubmit(data: LoginFormData) {
+    const success = await login(data);
+    if (!success) {
+      setError("password", {
+        type: "server",
+        message: "Invalid nickname or password",
+      });
+      return;
+    }
+    navigate("/tasks");
   }
+
   return (
     <div>
       <h1>Welcome!</h1>
-      {error && <p>{error}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="nickname">User: </label>
-        <input
-          type="text"
-          id="nickname"
-          value={nickname}
-          onChange={(event) => setNickname(event.target.value)}
-          required
-        />
+        <input type="text" id="nickname" {...register("nickname")} />
+        {errors.nickname && <p>{errors.nickname.message}</p>}
         <br />
         <label htmlFor="password">Password: </label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
+        <input type="password" id="password" {...register("password")} />
+        {errors.password && <p>{errors.password.message}</p>}
         <br />
         <button type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}

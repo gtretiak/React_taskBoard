@@ -6,6 +6,7 @@ import "../styles/App.css";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
+import TaskDetailsPage from "./pages/TaskDetailsPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route element={<AuthenticatedRoute />}>
             <Route path="/" element={<DashboardPage />} />
             <Route path="/tasks" element={<DashboardPage />} />
+            <Route path="tasks/:id" element={<TaskDetailsPage />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

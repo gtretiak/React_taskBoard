@@ -3,11 +3,12 @@ import { TASKSTATUS, type TaskStatus } from "../types/commonTypes";
 import type { Task } from "../types/responsesTypes";
 import { useTaskStore } from "../Store/taskStore";
 import { memo } from "react";
+import { useNavigate } from "react-router-dom";
 
 function TaskCard({ task }: { task: Task }) {
   const updateTask = useTaskStore((store) => store.updateTask);
   const deleteTask = useTaskStore((store) => store.deleteTask);
-  const fetchTask = useTaskStore((state) => state.fetchTask);
+  const navigate = useNavigate();
 
   return (
     <article className="task-card">
@@ -33,7 +34,7 @@ function TaskCard({ task }: { task: Task }) {
       </select>
       <br />
       <br />
-      <button type="button" onClick={() => fetchTask(task.id)}>
+      <button type="button" onClick={() => navigate(`/tasks/${task.id}`)}>
         Open Details
       </button>
       <br />
