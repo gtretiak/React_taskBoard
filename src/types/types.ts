@@ -1,3 +1,5 @@
+import type { ReactNode } from "react";
+
 // constants
 export const ROLE = {
   Admin: "ADMIN",
@@ -38,9 +40,33 @@ export type AssignmentStatus =
 export interface DraftTask {
   id: string;
   title: string;
-  status: TaskStatus;
-  deadline: Date;
+  completed: boolean;
 }
+export type TaskProps = {
+  onAdd: (title: string) => void;
+}; // onAdd is a prop that TaskForm receives
+
+export interface TaskCardProps {
+  task: DraftTask;
+  onUpdate: (id: string, completed: boolean) => void;
+  onDelete: (id: string) => void;
+}
+export interface AuthContextValue {
+  accessToken: string | null;
+  login: (username: string, password: string) => void;
+  logout: () => void;
+} // login and logout are functions
+export interface AuthProviderProps {
+  children: ReactNode;
+}
+export const THEME = {
+  dark: "dark",
+  light: "light",
+} as const;
+export type ThemeContextValue = (typeof THEME)[keyof typeof THEME];
+export interface ThemeProviderProps {
+  children: ReactNode;
+} // ReactNode something React can render as a child
 
 // API Request interfaces (frontend, some properties might not exist, they are optional):
 export interface RegisterRequest {
@@ -95,14 +121,14 @@ export interface CreateBlockRequest {
 export interface Task {
   id: string;
   title: string;
-  description?: string | null;
+  description: string | null;
   status: TaskStatus;
   priority: TaskPriority;
   visibility: TaskVisibility;
   creator: UserRef;
-  assignee?: UserRef | null;
+  assignee: UserRef | null;
   assignmentStatus: AssignmentStatus;
-  assignedById?: string | null;
+  assignedById: string | null;
   viewerUserIds: string[];
   tags: TagEntry[];
   createdAt: Date; // will be received as a string from the API (introduce TaskResponse with string perhaps)
@@ -121,29 +147,29 @@ export interface AuthResponse {
 export interface UserPicker {
   id: string;
   nickname: string;
-  email?: string | null;
+  email: string | null;
   role: Role;
 }
 export interface AdminUserRow {
   id: string;
   nickname: string;
-  email?: string | null;
+  email: string | null;
   role: Role;
-  bannedAt?: Date | null;
+  bannedAt: Date | null;
   createdAt: Date;
 }
 export interface AssignmentBlock {
   id: string;
   blockerId: string;
   blockedUserId: string;
-  comment?: string | null;
+  comment: string | null;
   createdAt: Date;
 }
 export interface AssignmentBlockWithUser {
   id: string;
   blockerId: string;
   blockedUserId: string;
-  comment?: string | null;
+  comment: string | null;
   createdAt: Date;
   blockedUser: UserRef;
 }
@@ -151,7 +177,7 @@ export interface AssignmentBlockAdminRow {
   id: string;
   blockerId: string;
   blockedUserId: string;
-  comment?: string | null;
+  comment: string | null;
   createdAt: Date;
   blocker: UserRef;
   blockedUser: UserRef;
@@ -162,7 +188,7 @@ export interface OkResponse {
 export interface UserRef {
   id: string;
   nickname: string;
-  email?: string | null; // ? means optional (not required; nullable - allowed to be null
+  email: string | null; // ? means optional (not required; nullable - allowed to be null
 }
 export interface TagEntry {
   id: string;

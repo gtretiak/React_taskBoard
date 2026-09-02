@@ -1,10 +1,11 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
+import { Routes, Route } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
-import TasksPage from "./pages/TasksPage";
 import Header from "./components/Header";
 import NotFoundPage from "./pages/NotFoundPage";
 import "../styles/App.css";
+import AuthenticatedRoute from "./components/AuthenticatedRoute";
+import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -12,10 +13,12 @@ function App() {
       <Header />
       <main>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/tasks" element={<TasksPage />} />
+          <Route element={<AuthenticatedRoute />}>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/tasks" element={<DashboardPage />} />
+          </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>

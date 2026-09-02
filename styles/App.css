@@ -3,3 +3,16 @@ main {
   margin: 0 auto;
   padding: 30px;
 }
+:root {
+  --color-background: white;
+  --color-text: black;
+}
+[data-theme="dark"] {
+  --color-background: #222;
+  --color-text: white;
+}
+[data-theme="dark"] {
+  min-height: 100vh;
+  background: var(--color-background);
+  color: var(--color-text);
+}
