@@ -1,22 +1,24 @@
-import { useAuth } from "../CustomHooks/useAuth";
-import { useState, type SubmitEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../Store/authStore";
+import { type SubmitEvent, useState } from "react";
 
 function LoginPage() {
-  const Auth = useAuth();
+  const login = useAuthStore((state) => state.login);
+  const loading = useAuthStore((state) => state.loading);
+  const error = useAuthStore((state) => state.error);
   const [nickname, setNickname] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    try {
-      await Auth.login(nickname, password);
-    } catch (error) {
-      console.error(error);
-    }
+    const success = await login({ nickname, password });
+    if (success) navigate("/tasks");
   }
   return (
     <div>
       <h1>Welcome!</h1>
+      {error && <p>{error}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="nickname">User: </label>
         <input
@@ -36,9 +38,13 @@ function LoginPage() {
           required
         />
         <br />
-        <button type="submit">Login</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Logging in..." : "Login"}
+        </button>
       </form>
     </div>
   );
 }
 export default LoginPage;
+
+// disabling button while loading

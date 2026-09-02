@@ -1,9 +1,12 @@
 import "../../styles/Header.css";
 import { NavLink } from "react-router-dom";
-import { useAuth } from "../CustomHooks/useAuth";
+import { useAuthStore } from "../Store/authStore";
+import { useTaskStore } from "../Store/taskStore";
 
 function Header() {
-  const { accessToken, logout } = useAuth();
+  const accessToken = useAuthStore((state) => state.accessToken);
+  const logout = useAuthStore((state) => state.logout);
+  const clear = useTaskStore((state) => state.clearTasks);
 
   return (
     <header className="header">
@@ -34,7 +37,13 @@ function Header() {
           >
             Tasks
           </NavLink>
-          <button type="button" onClick={logout}>
+          <button
+            type="button"
+            onClick={() => {
+              logout();
+              clear();
+            }}
+          >
             Logout
           </button>
         </nav>

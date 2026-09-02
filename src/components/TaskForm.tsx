@@ -1,14 +1,14 @@
 import { useState, type SubmitEvent } from "react";
-import type { TaskProps } from "../types/TaskForm.types";
 import "../../styles/TaskForm.css";
+import { useTaskStore } from "../Store/taskStore";
 
-function TaskForm({ onAdd }: TaskProps) {
+function TaskForm() {
   const [title, setTitle] = useState("");
-
-  function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
+  const createTask = useTaskStore((store) => store.createTask);
+  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
-    onAdd(title);
-    setTitle("");
+    await createTask({ title, viewerUserIds: [] }); //temp [] to decide on visibility later
+    setTitle(""); //clearing the input field after submission
   }
 
   return (
