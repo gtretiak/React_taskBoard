@@ -16,7 +16,7 @@ function DashboardPage() {
 
   return (
     <div>
-      <h1>Dashboard page</h1>
+      <h1>Welcome to the Dashboard page!</h1>
       <TaskForm onAdd={createTask} />
       <label htmlFor="search" className="task-search"></label>
       <input

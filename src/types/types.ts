@@ -53,9 +53,14 @@ export interface TaskCardProps {
 }
 export interface AuthContextValue {
   accessToken: string | null;
-  login: (username: string, password: string) => void;
-  logout: () => void;
-} // login and logout are functions
+  login: (nickname: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  register: (
+    nickname: string,
+    password: string,
+    email?: string,
+  ) => Promise<void>;
+}
 export interface AuthProviderProps {
   children: ReactNode;
 }
