@@ -8,7 +8,6 @@ function DashboardPage() {
   const tasks = useTaskStore((state) => state.tasks);
   const loading = useTaskStore((state) => state.loading);
   const error = useTaskStore((state) => state.error);
-  const clear = useTaskStore((state) => state.clearTasks);
   const fetchTasks = useTaskStore((state) => state.fetchTasks);
   const [search, setSearch] = useState("");
   const debounced = useDebouncedValue(search, 300);

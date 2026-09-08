@@ -1,12 +1,10 @@
 import "../../styles/Header.css";
 import { NavLink } from "react-router-dom";
 import { useAuthStore } from "../Store/authStore";
-import { useTaskStore } from "../Store/taskStore";
 
 function Header() {
   const accessToken = useAuthStore((state) => state.accessToken);
   const logout = useAuthStore((state) => state.logout);
-  const clear = useTaskStore((state) => state.clearTasks);
 
   return (
     <header className="header">
@@ -37,13 +35,7 @@ function Header() {
           >
             Tasks
           </NavLink>
-          <button
-            type="button"
-            onClick={() => {
-              logout();
-              clear();
-            }}
-          >
+          <button type="button" onClick={logout}>
             Logout
           </button>
         </nav>
