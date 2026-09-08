@@ -1,8 +1,8 @@
-import { useAuth } from "../CustomHooks/useAuth";
+import { useAuthStore } from "../Store/authStore";
 import { Navigate, Outlet } from "react-router-dom";
 
 function AuthenticatedRoute() {
-  const { accessToken } = useAuth();
+  const { accessToken } = useAuthStore();
 
   return accessToken ? <Outlet /> : <Navigate to="/login" replace />;
 }

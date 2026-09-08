@@ -3,7 +3,7 @@ import {
   THEME,
   type ThemeContextValue,
   type ThemeProviderProps,
-} from "../types/types";
+} from "../types/frontendTypes";
 
 export const ThemeContext = createContext<ThemeContextValue | null>(null);
 
