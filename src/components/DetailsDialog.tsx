@@ -78,32 +78,38 @@ function TaskDetailsPage() {
                 {task.visibility || "Visibility not set"}
               </p>
               <p>
-                <strong>Responsible team member:</strong>{" "}
-                {task.assignee?.nickname || "No one assigned yet"}
+                <strong>Responsible:</strong>{" "}
+                {task.assignee?.nickname || "Nobody assigned yet"}
               </p>
             </article>
 
-            <div className="actions">
-              <button type="button" onClick={() => navigate(-1)}>
-                Back to Tasks
+            <div className="dialog-actions">
+              <button
+                className="button"
+                type="button"
+                onClick={() => navigate(-1)}
+              >
+                Back
               </button>
 
               {hasWRPermission && (
                 <>
                   <button
+                    className="button"
                     type="button"
                     onClick={() => {
                       setIsEditDialog(true);
                     }}
                   >
-                    Edit Task
+                    Edit
                   </button>
 
                   <button
+                    className="button"
                     type="button"
                     onClick={() => setShowDeleteDialog(true)}
                   >
-                    Delete Task
+                    Delete
                   </button>
                 </>
               )}

@@ -1,3 +1,5 @@
+import "../../styles/TaskSkeleton.css";
+
 function TaskSkeleton() {
   return (
     <div className="task-list-skeleton">

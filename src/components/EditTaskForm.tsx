@@ -77,12 +77,17 @@ function EditTaskForm({ task, onSuccess, onCancel }: EditTaskFormProps) {
         disabled={updating}
       />
 
-      <div className="actions">
-        <button type="button" onClick={onCancel} disabled={updating}>
+      <div className="dialog-actions">
+        <button
+          className="button"
+          type="button"
+          onClick={onCancel}
+          disabled={updating}
+        >
           Cancel
         </button>
 
-        <button type="submit" disabled={updating}>
+        <button className="button" type="submit" disabled={updating}>
           {updating ? "Saving..." : "Save changes"}
         </button>
       </div>

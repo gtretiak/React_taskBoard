@@ -43,6 +43,7 @@ function TaskCard({ task, onDelete }: TaskCardProps) {
       <br />
       <br />
       <button
+        className="button"
         type="button"
         onClick={() =>
           navigate(`/tasks/${task.id}`, {
@@ -52,13 +53,13 @@ function TaskCard({ task, onDelete }: TaskCardProps) {
           })
         }
       >
-        Open Details
+        Open details
       </button>
       <br />
       <br />
       {hasWRPermission && (
-        <button type="button" onClick={() => onDelete(task)}>
-          Delete Task
+        <button className="button" type="button" onClick={() => onDelete(task)}>
+          Delete task
         </button>
       )}
     </article>

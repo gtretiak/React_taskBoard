@@ -91,74 +91,83 @@ function DashboardPage() {
   }, []);
 
   return (
-    <div>
+    <div className="dashboard">
       <h1>Welcome to the Dashboard page!</h1>
-      <div className="toolbar">
-        <button
-          type="button"
-          className="create-task-button"
-          onClick={() => setIsCreateDialog(true)}
-        >
-          Create new task
-        </button>
-        <TaskDialog
-          open={isCreateDialog}
-          title="Let's create a new task"
-          onCancel={() => setIsCreateDialog(false)}
-        >
-          <TaskForm
-            onSuccess={(taskId) => {
-              setNewTaskId(taskId);
-              setIsCreateDialog(false);
-            }}
+      <section className="toolbar">
+        <div className="task-actions">
+          <button
+            type="button"
+            className="create-task-button"
+            onClick={() => setIsCreateDialog(true)}
+          >
+            Create new task
+          </button>
+          <TaskDialog
+            open={isCreateDialog}
+            title="Let's create a new task"
             onCancel={() => setIsCreateDialog(false)}
-          ></TaskForm>
-        </TaskDialog>
+          >
+            <TaskForm
+              onSuccess={(taskId) => {
+                setNewTaskId(taskId);
+                setIsCreateDialog(false);
+              }}
+              onCancel={() => setIsCreateDialog(false)}
+            ></TaskForm>
+          </TaskDialog>
+          <div className="task-filters">
+            <div className="form-group-inline">
+              <label htmlFor="search">Search: </label>
+              <input
+                type="text"
+                id="search"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+              />
+            </div>
 
-        <label htmlFor="search" className="task-search">
-          Search:{" "}
-        </label>
-        <input
-          type="text"
-          id="search"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
+            <div className="form-group-inline">
+              <label htmlFor="sortBy">Sort by: </label>
+              <select
+                id="sortBy"
+                value={sortBy}
+                onChange={(event) =>
+                  setSortBy(event.target.value as SortingType)
+                }
+              >
+                <option value={SORTTYPE.title}>Title</option>
+                <option value={SORTTYPE.status}>Status</option>
+                <option value={SORTTYPE.priority}>Priority</option>
+                <option value={SORTTYPE.createdAt}>Creation Date</option>
+                <option value={SORTTYPE.updatedAt}>Last update</option>
+              </select>
+            </div>
 
-        <label htmlFor="sortBy" className="task-sortBy">
-          Sort by:{" "}
-        </label>
-        <select
-          id="sortBy"
-          value={sortBy}
-          onChange={(event) => setSortBy(event.target.value as SortingType)}
-        >
-          <option value={SORTTYPE.title}>Title</option>
-          <option value={SORTTYPE.status}>Status</option>
-          <option value={SORTTYPE.priority}>Priority</option>
-          <option value={SORTTYPE.createdAt}>Creation Date</option>
-          <option value={SORTTYPE.updatedAt}>Last update</option>
-        </select>
-
-        <label htmlFor="order" className="task-sortDir">
-          Order:{" "}
-        </label>
-        <select
-          id="order"
-          value={sortDir}
-          onChange={(event) => setSortDir(event.target.value as SortingDir)}
-        >
-          <option value={SORTDIR.ascending}>Ascending</option>
-          <option value={SORTDIR.descending}>Descending</option>
-        </select>
-      </div>
+            <div className="form-group-inline">
+              <label htmlFor="order">Order: </label>
+              <select
+                id="order"
+                value={sortDir}
+                onChange={(event) =>
+                  setSortDir(event.target.value as SortingDir)
+                }
+              >
+                <option value={SORTDIR.ascending}>Ascending</option>
+                <option value={SORTDIR.descending}>Descending</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="task-list">
         {loading && <TaskSkeleton />}
         {!loading && !filtering && error && (
           <div className="task-error">
             <p>{error}</p>
-            <button onClick={fetchTasks}>Retry</button>
+            <button className="button" onClick={fetchTasks}>
+              Retry
+            </button>
           </div>
         )}
         {!loading && !error && filtering && <TaskSkeleton />}

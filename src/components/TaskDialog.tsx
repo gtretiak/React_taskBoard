@@ -1,7 +1,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { useEffect } from "react";
-import "../../styles/Dialog.css";
+import "../../styles/dialogs.css";
 
 interface TaskDialogProps {
   open: boolean;

@@ -36,7 +36,9 @@
   background: #f0f0f0;
 }
 .nav a.active {
-  background: #ddd;
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
   font-weight: bold;
 }
 .nav a:active,

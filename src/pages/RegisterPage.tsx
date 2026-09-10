@@ -59,7 +59,7 @@ function RegisterPage() {
         />
         {errors.email && <p className="field-error">{errors.email.message}</p>}
         <br />
-        <button type="submit" disabled={loading}>
+        <button className="button" type="submit" disabled={loading}>
           {loading ? "Registering..." : "Register"}
         </button>
       </form>

@@ -72,7 +72,7 @@ function ChangePasswordPage() {
           )}
         </div>
 
-        <button type="submit" disabled={loading}>
+        <button className="button" type="submit" disabled={loading}>
           {loading ? "Updating password..." : "Change password"}
         </button>
       </form>

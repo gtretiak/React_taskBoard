@@ -1,5 +1,6 @@
 import { useState, useEffect, type SubmitEvent } from "react";
 import "../../styles/TaskForm.css";
+import "../../styles/Spinner.css";
 import { useTaskStore } from "../Store/taskStore";
 import TaskFields from "./TaskFields";
 import { useUserStore } from "../Store/userStore";
@@ -102,7 +103,7 @@ function TaskForm({ onSuccess, onCancel }: TaskFormProps) {
         </select>
       </div>
 
-      <button type="submit" disabled={creating}>
+      <button className="button" type="submit" disabled={creating}>
         {creating ? (
           <>
             <span className="spinner" />
@@ -113,7 +114,12 @@ function TaskForm({ onSuccess, onCancel }: TaskFormProps) {
         )}
       </button>
 
-      <button type="button" disabled={creating} onClick={onCancel}>
+      <button
+        className="button"
+        type="button"
+        disabled={creating}
+        onClick={onCancel}
+      >
         Cancel (Esc)
       </button>
     </form>

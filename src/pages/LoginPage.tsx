@@ -47,7 +47,7 @@ function LoginPage() {
           <p className="field-error">{errors.password.message}</p>
         )}
         <br />
-        <button type="submit" disabled={loading}>
+        <button className="button" type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>
