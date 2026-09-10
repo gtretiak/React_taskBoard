@@ -1,6 +1,7 @@
 import type {
   TaskStatus,
   TaskVisibility,
+  TaskPriority,
   AssignmentStatus,
   Role,
 } from "./commonTypes";

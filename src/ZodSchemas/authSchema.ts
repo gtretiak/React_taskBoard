@@ -19,3 +19,15 @@ export const RegisterSchema = z.object({
 }); // expecting the object
 
 export type RegisterFormData = z.infer<typeof RegisterSchema>;
+
+export const changePasswordSchema = z
+  .object({
+    current: z.string().min(8, "Current password (8+ characters) is required"),
+    new: z.string().min(8, "New password (8+ characters) is required"),
+    confirmation: z.string().min(8, "Please confirm the new password"),
+  })
+  .refine((data) => data.new === data.confirmation, {
+    message: "Passwords do not match",
+    path: ["confirmation"],
+  });
+export type changePasswordFormData = z.infer<typeof changePasswordSchema>;

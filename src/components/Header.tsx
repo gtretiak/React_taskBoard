@@ -35,6 +35,12 @@ function Header() {
           >
             Tasks
           </NavLink>
+          <NavLink
+            to="/password"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Change password
+          </NavLink>
           <button type="button" onClick={logout}>
             Logout
           </button>

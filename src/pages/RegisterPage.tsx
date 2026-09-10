@@ -6,6 +6,7 @@ import {
   RegisterSchema,
   type RegisterFormData,
 } from "../ZodSchemas/authSchema";
+import toast from "react-hot-toast";
 
 function RegisterPage() {
   const registerUser = useAuthStore((store) => store.register);
@@ -26,8 +27,10 @@ function RegisterPage() {
         type: "server",
         message: "This nickname is already taken",
       });
+      toast.error("Registration failed");
       return;
     }
+    toast.success("Registration success!");
     navigate("/login");
   }
 
@@ -37,11 +40,15 @@ function RegisterPage() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="nickname">User: </label>
         <input type="text" id="nickname" {...register("nickname")} />
-        {errors.nickname && <p>{errors.nickname.message}</p>}
+        {errors.nickname && (
+          <p className="field-error">{errors.nickname.message}</p>
+        )}
         <br />
         <label htmlFor="password">Password: </label>
         <input type="password" id="password" {...register("password")} />
-        {errors.password && <p>{errors.password.message}</p>}
+        {errors.password && (
+          <p className="field-error">{errors.password.message}</p>
+        )}
         <br />
         <label htmlFor="email">Email [optional]: </label>
         <input
@@ -50,7 +57,7 @@ function RegisterPage() {
           placeholder="email@provider.domen"
           {...register("email")}
         />
-        {errors.email && <p>{errors.email.message}</p>}
+        {errors.email && <p className="field-error">{errors.email.message}</p>}
         <br />
         <button type="submit" disabled={loading}>
           {loading ? "Registering..." : "Register"}

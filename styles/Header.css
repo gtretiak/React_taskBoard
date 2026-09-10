@@ -1,4 +1,7 @@
 .header {
+  position: sticky;
+  top: 0;
+  z-index: 900;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,6 +26,9 @@
   text-decoration: none;
   cursor: pointer;
   font-size: 14px;
+  transition:
+    transform 100ms ease,
+    opacity 150ms ease;
 }
 
 .nav a:hover,
@@ -32,4 +38,8 @@
 .nav a.active {
   background: #ddd;
   font-weight: bold;
+}
+.nav a:active,
+.nav button:active {
+  transform: scale(0.9);
 }

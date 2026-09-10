@@ -6,13 +6,41 @@ main {
 :root {
   --color-background: white;
   --color-text: black;
+  --color-skeleton: #cfcfcf;
 }
 [data-theme="dark"] {
   --color-background: #222;
   --color-text: white;
+  --color-skeleton: #444;
 }
 [data-theme="dark"] {
   min-height: 100vh;
   background: var(--color-background);
   color: var(--color-text);
+}
+.toolbar {
+  position: sticky;
+  top: 60px;
+  display: flex;
+  padding: 12px 0;
+  flex-wrap: wrap;
+  z-index: 800;
+  align-items: center;
+  gap: 5px;
+  background: var(--color-background);
+}
+.create-task-button {
+  position: sticky;
+  top: 50;
+  z-index: 800;
+  display: flex;
+}
+.toTop {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+}
+.field-error {
+  margin: 4px 0;
+  font-size: 0.9rem;
 }

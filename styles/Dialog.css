@@ -1,0 +1,25 @@
+.dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(0 0 0 / 40%);
+  z-index: 1000;
+}
+
+.dialog {
+  width: min(90%, 450px);
+  padding: 24px;
+  border-radius: 10px;
+  background: var(--color-background);
+  color: var(--color-text);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 20%);
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}

@@ -1,3 +1,5 @@
+import { useAuthStore } from "../Store/authStore";
+
 const baseUrl = import.meta.env.VITE_API_BASE_URL;
 // reading the environment variable baseUrl
 const AUTH_KEY = "accessToken";
@@ -19,6 +21,7 @@ export async function apiRequest(
     headers,
   }); // including Authorization header
   if (!response.ok) {
+    if (response.status === 401) useAuthStore.getState().invalidateSession();
     const error = await response.json();
     throw new Error(`API Error: ${response.status}: ${error.message}`);
   }

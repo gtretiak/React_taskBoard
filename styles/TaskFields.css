@@ -1,0 +1,26 @@
+.viewer-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.viewer-option {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  margin: 4px 0;
+}
+
+.viewer-option input {
+  flex: 0 0 auto;
+  margin: 0;
+  width: auto;
+}
+
+.viewer-option span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
