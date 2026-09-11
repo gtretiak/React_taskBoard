@@ -11,12 +11,12 @@ function mapTaskDate(task: Task): Task {
     createdAt: new Date(task.createdAt),
     updatedAt: new Date(task.updatedAt),
   };
-}
+} // takes Task with dates as strings, returns Task with dates as Dates
 
 export async function getTasksAPI(): Promise<TaskListResponse> {
   const response = await apiRequest("/tasks", { auth: true });
-  const tasks = await response.json();
-  return { ...tasks, items: tasks.items.map(mapTaskDate) };
+  const tasks = await response.json(); // here Task's dates are strings
+  return { ...tasks, items: tasks.items.map(mapTaskDate) }; // here not anymore
 } // GET /tasks
 
 export async function getTaskAPI(id: string): Promise<Task> {
