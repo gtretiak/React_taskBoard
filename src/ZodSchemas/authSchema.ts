@@ -30,4 +30,5 @@ export const changePasswordSchema = z
     message: "Passwords do not match",
     path: ["confirmation"],
   });
-export type changePasswordFormData = z.infer<typeof changePasswordSchema>;
+// refine allows to evaluate the whole object after validating each field separately, path is where it should display the error
+export type changePasswordFormData = z.infer<typeof changePasswordSchema>; // extracting the structure and converting it into an interface type to be used from components
