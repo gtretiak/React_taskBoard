@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from "zustand"; // State manager
 import type {
   ChangePasswordRequest,
   LoginRequest,
@@ -10,7 +10,7 @@ import type { UserPicker } from "../types/responsesTypes";
 interface AuthState {
   accessToken: string | null;
   user: UserPicker | null;
-  loading: boolean;
+  loading: boolean; // to track API requests
   error: string | null;
   login: (data: LoginRequest) => Promise<boolean>;
   register: (data: RegisterRequest) => Promise<boolean>;
@@ -19,9 +19,11 @@ interface AuthState {
   changePassword: (data: ChangePasswordRequest) => Promise<boolean>;
 }
 
+// access token and profile data to be stored in persistent browser storage with localStorage
 const AUTH_KEY = "accessToken";
 const USER_KEY = "user";
 
+// useAuthStore is a custom hook:
 export const useAuthStore = create<AuthState>((set) => ({
   accessToken: localStorage.getItem(AUTH_KEY),
   user: JSON.parse(localStorage.getItem(USER_KEY) || "null"),
@@ -34,14 +36,14 @@ export const useAuthStore = create<AuthState>((set) => ({
       error: null,
     });
     try {
-      const response = await loginAPI(data);
+      const response = await loginAPI(data); // awaiting network response
       localStorage.setItem(AUTH_KEY, response.accessToken);
       localStorage.setItem(USER_KEY, JSON.stringify(response.user));
       set({
         accessToken: response.accessToken,
         user: response.user,
         loading: false,
-      });
+      }); // updating the Zustand state variables with the built-in set() function
       return true;
     } catch (error) {
       set({
