@@ -17,3 +17,6 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     </ThemeContext.Provider>
   );
 }
+// reading from .env at build time
+// createContext allows all the components to read the active theme without passing it manually down through every single file
+// Provider broadcasts the theme out to all listening child components
