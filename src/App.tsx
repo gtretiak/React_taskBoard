@@ -14,8 +14,9 @@ import TaskDetailsPage from "./components/DetailsDialog";
 import ChangePasswordPage from "./pages/ChangePasswordPage";
 
 function App() {
-  const location = useLocation();
-  const backgroundLocation = location.state?.backgroundLocation;
+  const location = useLocation(); // current URL
+  const backgroundLocation = location.state?.backgroundLocation; // saving dashboard to come back later from the task details opened in dialog, without re-rendering it again
+  // Toaster is a notification container
   return (
     <>
       <Toaster
