@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create } from "zustand"; // State manager
 import type {
   CreateTaskRequest,
   ReplaceTaskRequest,
@@ -51,7 +51,7 @@ export const useTaskStore = create<TaskState>((set) => ({
       set({
         loading: false,
         error: error instanceof Error ? error.message : "Failed to load tasks",
-      });
+      }); // if what was caught is an instance of standard Error object - we write its message, otherwise - the secondary one
     }
   },
 
