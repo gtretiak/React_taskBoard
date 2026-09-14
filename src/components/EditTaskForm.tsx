@@ -33,7 +33,7 @@ function EditTaskForm({ task, onSuccess, onCancel }: EditTaskFormProps) {
   const updating = updatingTaskId === task.id;
 
   const users = useUserStore((state) => state.users);
-  const fetchUsers = useUserStore((state) => state.fetchUsers);
+  const fetchUsers = useUserStore((state) => state.fetchUsers); // probably should be cached later to avoid triggering every single time identical network request
   useEffect(() => {
     fetchUsers();
   }, [fetchUsers]);
@@ -47,7 +47,7 @@ function EditTaskForm({ task, onSuccess, onCancel }: EditTaskFormProps) {
       priority,
       visibility,
       viewerUserIds: visibility === TASKVISIBILITY.List ? viewerUserIds : [],
-    };
+    }; // empty array if not a list
     try {
       await updateTask(task.id, data);
       toast.success("Task updated successfully");

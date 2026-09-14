@@ -21,7 +21,8 @@ function RegisterPage() {
   } = useForm<RegisterFormData>({ resolver: zodResolver(RegisterSchema) }); // creating a form instance
 
   async function onSubmit(data: RegisterFormData) {
-    const success = await registerUser(data);
+    const { confirmation, ...CleanData } = data;
+    const success = await registerUser(CleanData);
     if (!success) {
       setError("nickname", {
         type: "server",
@@ -38,27 +39,43 @@ function RegisterPage() {
     <div>
       <h1>Welcome, new user!</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="nickname">User: </label>
-        <input type="text" id="nickname" {...register("nickname")} />
-        {errors.nickname && (
-          <p className="field-error">{errors.nickname.message}</p>
-        )}
-        <br />
-        <label htmlFor="password">Password: </label>
-        <input type="password" id="password" {...register("password")} />
-        {errors.password && (
-          <p className="field-error">{errors.password.message}</p>
-        )}
-        <br />
-        <label htmlFor="email">Email [optional]: </label>
-        <input
-          type="email"
-          id="email"
-          placeholder="email@provider.domen"
-          {...register("email")}
-        />
-        {errors.email && <p className="field-error">{errors.email.message}</p>}
-        <br />
+        <div>
+          <label htmlFor="nickname">User: </label>
+          <input type="text" id="nickname" {...register("nickname")} />
+          {errors.nickname && (
+            <p className="field-error">{errors.nickname.message}</p>
+          )}
+        </div>
+        <div>
+          <label htmlFor="password">Password: </label>
+          <input type="password" id="password" {...register("password")} />
+          {errors.password && (
+            <p className="field-error">{errors.password.message}</p>
+          )}
+        </div>
+        <div>
+          <label htmlFor="confirmation">Confirm password: </label>
+          <input
+            type="password"
+            id="confirmation"
+            {...register("confirmation")}
+          />
+          {errors.confirmation && (
+            <p className="field-error">{errors.confirmation.message}</p>
+          )}
+        </div>
+        <div>
+          <label htmlFor="email">Email [optional]: </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="email@provider.domen"
+            {...register("email")}
+          />
+          {errors.email && (
+            <p className="field-error">{errors.email.message}</p>
+          )}
+        </div>
         <button className="button" type="submit" disabled={loading}>
           {loading ? "Registering..." : "Register"}
         </button>

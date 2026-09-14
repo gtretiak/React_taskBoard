@@ -8,12 +8,12 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 interface TaskCardProps {
   task: Task;
-  onDelete: (task: Task) => void;
+  onDelete: (task: Task) => void; // we need a callback for that function!
 }
 function TaskCard({ task, onDelete }: TaskCardProps) {
   const updateTask = useTaskStore((store) => store.updateTask);
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation(); // allows to save the task board screen as a background layer, when navigating to /tasks/:id
   const user = useAuthStore((state) => state.user);
   const hasWRPermission =
     user !== null && (user.id === task.creator.id || user.role === ROLE.Admin);
@@ -65,5 +65,6 @@ function TaskCard({ task, onDelete }: TaskCardProps) {
     </article>
   );
 }
-export default memo(TaskCard);
+export default memo(TaskCard); // memo lets to skip re-rendering the component if props haven't changed
+// htmlFor={`status-${task.id}`} ensures uniquness
 // ?? means null or undefined

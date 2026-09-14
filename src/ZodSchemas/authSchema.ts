@@ -8,15 +8,24 @@ export const loginSchema = z.object({
 export type LoginFormData = z.infer<typeof loginSchema>;
 // getting a type from zod schema
 
-export const RegisterSchema = z.object({
-  nickname: z
-    .string()
-    .min(3, "Minimum length 3 characters")
-    .max(24, "Too big name (24 characters max)")
-    .regex(/^[a-z0-9_]+$/, "Only lowercase, digits and underscore are allowed"),
-  password: z.string().min(8, "Password must be 8+ characters"),
-  email: z.email("Invalid email address").optional().or(z.literal("")),
-}); // expecting the object
+export const RegisterSchema = z
+  .object({
+    nickname: z
+      .string()
+      .min(3, "Minimum length 3 characters")
+      .max(24, "Too big name (24 characters max)")
+      .regex(
+        /^[a-z0-9_]+$/,
+        "Only lowercase, digits and underscore are allowed",
+      ),
+    password: z.string().min(8, "Password must be 8+ characters"),
+    confirmation: z.string().min(8, "Please confirm the new password"),
+    email: z.email("Invalid email address").optional().or(z.literal("")),
+  })
+  .refine((data) => data.password === data.confirmation, {
+    message: "Passwords do not match",
+    path: ["confirmation"],
+  }); // expecting the object
 
 export type RegisterFormData = z.infer<typeof RegisterSchema>;
 

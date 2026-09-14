@@ -1,10 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import TaskCard from "../components/TaskCard";
 import TaskForm from "../components/TaskForm";
 import TaskDialog from "../components/TaskDialog";
 import TaskSkeleton from "../components/TaskSkeleton";
 import DeleteDialog from "../components/DeleteDialog";
 import { useTaskStore } from "../Store/taskStore";
+import { useAuthStore } from "../Store/authStore";
 import { useDebouncedValue } from "../CustomHooks/useDeobouncedValue";
 import type { Task } from "../types/responsesTypes";
 import {
@@ -29,7 +30,11 @@ function DashboardPage() {
   const [showToTop, setShowToTop] = useState(false);
   const deleteTask = useTaskStore((state) => state.deleteTask);
   const [taskToDelete, setTaskToDelete] = useState<Task | null>(null);
+  const handleDeleteClick = useCallback((task: Task) => {
+    setTaskToDelete(task);
+  }, []); // locking the function address on initial mounting for whatever number of Dashboard re-renders (it allows to not trigger re-render for all taskcards on every Dashboard re-render)
   const deletingTaskId = useTaskStore((state) => state.deletingTaskId);
+  const user = useAuthStore((state) => state.user);
   const debounced = useDebouncedValue(search, 300);
   useEffect(() => {
     fetchTasks();
@@ -44,7 +49,7 @@ function DashboardPage() {
     workerRef.current = new Worker(
       new URL("../Workers/taskWorker.ts", import.meta.url),
       { type: "module" },
-    );
+    ); // splitting the worker script into a distinct file
     workerRef.current.onmessage = (event: MessageEvent<Task[]>) => {
       setFilteredTasks(event.data);
       setFiltering(false);
@@ -71,7 +76,7 @@ function DashboardPage() {
     if (!newTaskId) return;
     const element = document.getElementById(`task-${newTaskId}`);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth", block: "center" });
+      element.scrollIntoView({ behavior: "smooth", block: "center" }); // showing newly created taskcard
     }
     const timer = setTimeout(() => {
       setNewTaskId(null);
@@ -92,7 +97,7 @@ function DashboardPage() {
 
   return (
     <div className="dashboard">
-      <h1>Welcome to the Dashboard page!</h1>
+      <h1>Welcome to the Dashboard page, {user?.nickname}!</h1>
       <section className="toolbar">
         <div className="task-actions">
           <button
@@ -199,7 +204,7 @@ function DashboardPage() {
                 ease: "easeInOut",
               }}
             >
-              <TaskCard task={task} onDelete={setTaskToDelete} />
+              <TaskCard task={task} onDelete={handleDeleteClick} />
             </motion.div>
           ))}
         </AnimatePresence>
@@ -248,3 +253,5 @@ function DashboardPage() {
   );
 }
 export default DashboardPage;
+// AnimatePresence - Framer Motion animation
+// we needto show skeleton when both filtering and loading

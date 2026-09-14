@@ -51,3 +51,5 @@ function DeleteDialog({
 }
 
 export default DeleteDialog;
+// we use generic TaskDialog
+// disabling buttons prevents from triggering double requests

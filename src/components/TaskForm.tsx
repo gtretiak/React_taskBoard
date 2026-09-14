@@ -50,7 +50,7 @@ function TaskForm({ onSuccess, onCancel }: TaskFormProps) {
         visibility,
         viewerUserIds: visibility === TASKVISIBILITY.List ? viewerUserIds : [],
         assigneeId: assigneeId || undefined,
-      });
+      }); // || undefined allows to evaluate an empty string as false and convert it into undefined which forces JS to drop the property entirely from JSON giving the server unambiguous signal to create an unassigned task
       toast.success("Task created successfully!");
       setTitle(""); //clearing the input field after submission
       setDescription("");
@@ -59,7 +59,7 @@ function TaskForm({ onSuccess, onCancel }: TaskFormProps) {
       setVisibility(TASKVISIBILITY.Anyone);
       setAssigneeId("");
       setViewerUserIds([]);
-      onSuccess(newTask.id);
+      onSuccess(newTask.id); // to keep track of the newly created task's id and show it on the Dashboard
     } catch (error) {
       toast.error("Task creation failure. Try again, please");
     }

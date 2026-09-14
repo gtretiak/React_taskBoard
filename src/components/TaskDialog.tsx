@@ -12,7 +12,7 @@ interface TaskDialogProps {
 
 function TaskDialog({ open, title, onCancel, children }: TaskDialogProps) {
   useEffect(() => {
-    if (!open) return;
+    if (!open) return; // nothing to listen to, if dialog is not open
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") onCancel();
     }
@@ -61,3 +61,4 @@ function TaskDialog({ open, title, onCancel, children }: TaskDialogProps) {
 }
 
 export default TaskDialog;
+// stopPropagation prevents the dialog closure on clicking anywhere inside the box, except actual button

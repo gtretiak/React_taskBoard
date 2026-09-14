@@ -32,7 +32,7 @@ function TaskDetailsPage() {
   if (error) return <p>{error}</p>;
   if (!task) return <p>Task not found</p>;
 
-  const taskId = task.id; // to persuade TS that Task is not null
+  const taskId = task.id; // to persuade TS that Task is not null in the async function below
 
   const hasWRPermission =
     user !== null && (user.id === task.creator.id || user.role === ROLE.Admin);
@@ -42,7 +42,7 @@ function TaskDetailsPage() {
       await deleteTask(taskId);
       navigate(-1);
     } catch {}
-  }
+  } // empty catch because useTaskStore would catch and handle it instead anyway
 
   return (
     <>
@@ -132,3 +132,7 @@ function TaskDetailsPage() {
 }
 
 export default TaskDetailsPage;
+// isEditDialog flag allows to display both edit and details dialogs
+// Delete dialog would be on top of task dialog
+// It's important to use deletingTaskId === task.id comparisson instead of just relying on global deleting state to avoid showing deleting spinner on multiple tasks.
+// While deleting is performed, the deletion dialog is blocked

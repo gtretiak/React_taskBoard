@@ -15,6 +15,7 @@ function ChangePasswordPage() {
   const error = useAuthStore((state) => state.error);
   const logout = useAuthStore((state) => state.logout);
   const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user);
 
   useEffect(() => {
     if (error) toast.error(error);
@@ -26,7 +27,7 @@ function ChangePasswordPage() {
     formState: { errors },
   } = useForm<changePasswordFormData>({
     resolver: zodResolver(changePasswordSchema),
-  }); // creating a form instance
+  }); // creating a form instance that intercepts inserted data and checks it separately and blocks submission if anything breaks rules written in Schema
 
   async function onSubmit(data: changePasswordFormData) {
     const success = await changePassword({
@@ -38,13 +39,13 @@ function ChangePasswordPage() {
       setTimeout(() => {
         logout();
         navigate("/login");
-      }, 1200);
+      }, 1500);
     } else toast.error("Invalid credentials! You got logged out");
   }
 
   return (
     <section>
-      <h1>Change Password</h1>
+      <h1>Let's change your password, {user?.nickname}!</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label htmlFor="current">Current password: </label>

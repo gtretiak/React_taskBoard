@@ -33,7 +33,7 @@ function LoginPage() {
 
   return (
     <div>
-      <h1>Welcome!</h1>
+      <h1>Welcome, stranger! Have we met before?</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="nickname">User: </label>
         <input type="text" id="nickname" {...register("nickname")} />
