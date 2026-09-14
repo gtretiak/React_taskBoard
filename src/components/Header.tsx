@@ -5,6 +5,7 @@ import { useAuthStore } from "../Store/authStore";
 function Header() {
   const accessToken = useAuthStore((state) => state.accessToken);
   const logout = useAuthStore((state) => state.logout);
+  // extracting the entire state would cause unnecessary re-rendering on every change to any unrelated state (like nickname, role, etc.)
 
   return (
     <header className="header">
@@ -35,6 +36,12 @@ function Header() {
           >
             Tasks
           </NavLink>
+          <NavLink
+            to="/password"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Change password
+          </NavLink>
           <button type="button" onClick={logout}>
             Logout
           </button>
@@ -43,4 +50,6 @@ function Header() {
     </header>
   );
 }
+
 export default Header;
+// by tracking current URL and using isActive property, NavLink can say whether it's active or not, so that we can dynamically change the CSS class

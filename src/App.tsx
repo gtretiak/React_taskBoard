@@ -1,28 +1,59 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
 import RegisterPage from "./pages/RegisterPage";
 import Header from "./components/Header";
 import NotFoundPage from "./pages/NotFoundPage";
-import "../styles/App.css";
+import "../styles/layout.css";
+import "../styles/buttons.css";
+import "../styles/forms.css";
+import "../styles/dialogs.css";
 import AuthenticatedRoute from "./components/AuthenticatedRoute";
 import DashboardPage from "./pages/DashboardPage";
 import LoginPage from "./pages/LoginPage";
-import TaskDetailsPage from "./pages/TaskDetailsPage";
+import TaskDetailsPage from "./components/DetailsDialog";
+import ChangePasswordPage from "./pages/ChangePasswordPage";
 
 function App() {
+  const location = useLocation(); // current URL
+  const backgroundLocation = location.state?.backgroundLocation; // saving dashboard to come back later from the task details opened in dialog, without re-rendering it again
+  // Toaster is a notification container
   return (
     <>
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          success: {
+            style: {
+              background: "green",
+              color: "white",
+            },
+          },
+          error: {
+            style: {
+              background: "red",
+              color: "white",
+            },
+          },
+        }}
+      />
       <Header />
       <main>
-        <Routes>
+        <Routes location={backgroundLocation || location}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route element={<AuthenticatedRoute />}>
             <Route path="/" element={<DashboardPage />} />
+            <Route path="/password" element={<ChangePasswordPage />} />
             <Route path="/tasks" element={<DashboardPage />} />
             <Route path="tasks/:id" element={<TaskDetailsPage />} />
           </Route>
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+        {backgroundLocation && (
+          <Routes>
+            <Route path="/tasks/:id" element={<TaskDetailsPage />} />
+          </Routes>
+        )}
       </main>
     </>
   );

@@ -3,6 +3,7 @@ import { useAuthStore } from "../Store/authStore";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema, type LoginFormData } from "../ZodSchemas/authSchema";
+import toast from "react-hot-toast";
 
 function LoginPage() {
   const login = useAuthStore((state) => state.login);
@@ -23,24 +24,30 @@ function LoginPage() {
         type: "server",
         message: "Invalid nickname or password",
       });
+      toast.error("Invalid nickname or password");
       return;
     }
+    toast.success("Welcome back!");
     navigate("/tasks");
   }
 
   return (
     <div>
-      <h1>Welcome!</h1>
+      <h1>Welcome, stranger! Have we met before?</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="nickname">User: </label>
         <input type="text" id="nickname" {...register("nickname")} />
-        {errors.nickname && <p>{errors.nickname.message}</p>}
+        {errors.nickname && (
+          <p className="field-error">{errors.nickname.message}</p>
+        )}
         <br />
         <label htmlFor="password">Password: </label>
         <input type="password" id="password" {...register("password")} />
-        {errors.password && <p>{errors.password.message}</p>}
+        {errors.password && (
+          <p className="field-error">{errors.password.message}</p>
+        )}
         <br />
-        <button type="submit" disabled={loading}>
+        <button className="button" type="submit" disabled={loading}>
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>

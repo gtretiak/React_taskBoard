@@ -1,23 +1,32 @@
-import { create } from "zustand";
-import type { LoginRequest, RegisterRequest } from "../types/requestsTypes";
-import { loginAPI, registerAPI } from "../api/authAPI";
+import { create } from "zustand"; // State manager
+import type {
+  ChangePasswordRequest,
+  LoginRequest,
+  RegisterRequest,
+} from "../types/requestsTypes";
+import { changePasswordAPI, loginAPI, registerAPI } from "../api/authAPI";
 import type { UserPicker } from "../types/responsesTypes";
 
 interface AuthState {
   accessToken: string | null;
   user: UserPicker | null;
-  loading: boolean;
+  loading: boolean; // to track API requests
   error: string | null;
   login: (data: LoginRequest) => Promise<boolean>;
   register: (data: RegisterRequest) => Promise<boolean>;
   logout: () => Promise<void>;
+  invalidateSession: () => void;
+  changePassword: (data: ChangePasswordRequest) => Promise<boolean>;
 }
 
+// access token and profile data to be stored in persistent browser storage with localStorage
 const AUTH_KEY = "accessToken";
+const USER_KEY = "user";
 
+// useAuthStore is a custom hook:
 export const useAuthStore = create<AuthState>((set) => ({
   accessToken: localStorage.getItem(AUTH_KEY),
-  user: null,
+  user: JSON.parse(localStorage.getItem(USER_KEY) || "null"),
   loading: false,
   error: null,
 
@@ -27,13 +36,14 @@ export const useAuthStore = create<AuthState>((set) => ({
       error: null,
     });
     try {
-      const response = await loginAPI(data);
+      const response = await loginAPI(data); // awaiting network response
       localStorage.setItem(AUTH_KEY, response.accessToken);
+      localStorage.setItem(USER_KEY, JSON.stringify(response.user));
       set({
         accessToken: response.accessToken,
         user: response.user,
         loading: false,
-      });
+      }); // updating the Zustand state variables with the built-in set() function
       return true;
     } catch (error) {
       set({
@@ -66,9 +76,40 @@ export const useAuthStore = create<AuthState>((set) => ({
 
   logout: async () => {
     localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem(USER_KEY);
     set({
       accessToken: null,
       user: null,
     });
+  },
+
+  invalidateSession: () => {
+    localStorage.removeItem(AUTH_KEY);
+    localStorage.removeItem(USER_KEY);
+    set({
+      accessToken: null,
+      user: null,
+    });
+  },
+
+  changePassword: async (data) => {
+    set({
+      loading: true,
+      error: null,
+    });
+    try {
+      await changePasswordAPI(data);
+      set({
+        loading: false,
+      });
+      return true;
+    } catch (error) {
+      set({
+        loading: false,
+        error:
+          error instanceof Error ? error.message : "Failed to change password",
+      });
+      return false;
+    }
   },
 }));
