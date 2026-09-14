@@ -1,10 +1,14 @@
 # Task Board SPA
 
 React + TypeScript task board developed during the DSR JS Bootcamp.
-
 ## Project
 
-Task board SPA built with React and TypeScript using the provided Task Board Backend API that includes a swagger and Postman data files.
+Task board SPA is a single-page task-management app built with React, TypeScript, and Vite, using the provided Task Board Backend API that includes a swagger and Postman data files. It lets users log in, register, as well as create, view, update, and delete tasks.
+
+Backend API: https://github.com/koshkinoko-hana/task-board-api.git
+
+## Installation
+...
 
 # Project requirements
 
@@ -174,7 +178,7 @@ The outcome: “board-like” behavior without a server; no Redux yet
 
 ### L4 — Building and Bundling
 
-1. Deploy the backend according to the provided instructions: GitHub - koshkinoko-hana/task-board-api
+1. Deploy the backend according to the provided instructions: https://github.com/koshkinoko-hana/task-board-api.git
 
 The deployed backend should provide the functionality required for authentication.
 
