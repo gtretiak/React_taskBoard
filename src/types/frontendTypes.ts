@@ -18,6 +18,7 @@ export const THEME = {
   light: "light",
 } as const;
 export type ThemeContextValue = (typeof THEME)[keyof typeof THEME];
+  // extracting all valid values from the JS object
 export interface ThemeProviderProps {
   children: ReactNode;
-} // ReactNode something React can render as a child
+} // ReactNode represents any child component React can render

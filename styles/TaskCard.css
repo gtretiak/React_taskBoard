@@ -5,4 +5,32 @@
   color: var(--color-text);
   border: 1px solid #777;
   border-radius: 8px;
+  animation: cardAppear 1000ms ease-out;
+}
+
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.new-task-wrapper {
+  background: #b7f7c1;
+  border-radius: 8px;
+  animation: newTaskHighlight 1800ms ease-out;
+}
+
+@keyframes newTaskHighlight {
+  from {
+    background: #b7f7c1;
+  }
+
+  to {
+    background: transparent;
+  }
 }

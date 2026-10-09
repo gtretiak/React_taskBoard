@@ -1,4 +1,4 @@
-import type { TaskStatus, TaskVisibility } from "./commonTypes";
+import type { TaskStatus, TaskVisibility, TaskPriority } from "./commonTypes";
 
 // API Request interfaces (frontend, some properties might not exist, they are optional):
 export interface RegisterRequest {

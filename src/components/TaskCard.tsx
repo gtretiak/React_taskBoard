@@ -1,14 +1,22 @@
 import "../../styles/TaskCard.css";
-import { TASKSTATUS, type TaskStatus } from "../types/commonTypes";
+import { ROLE, TASKSTATUS, type TaskStatus } from "../types/commonTypes";
 import type { Task } from "../types/responsesTypes";
 import { useTaskStore } from "../Store/taskStore";
+import { useAuthStore } from "../Store/authStore";
 import { memo } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
-function TaskCard({ task }: { task: Task }) {
+interface TaskCardProps {
+  task: Task;
+  onDelete: (task: Task) => void; // we need a callback for that function!
+}
+function TaskCard({ task, onDelete }: TaskCardProps) {
   const updateTask = useTaskStore((store) => store.updateTask);
-  const deleteTask = useTaskStore((store) => store.deleteTask);
   const navigate = useNavigate();
+  const location = useLocation(); // allows to save the task board screen as a background layer, when navigating to /tasks/:id
+  const user = useAuthStore((state) => state.user);
+  const hasWRPermission =
+    user !== null && (user.id === task.creator.id || user.role === ROLE.Admin);
 
   return (
     <article className="task-card">
@@ -34,16 +42,29 @@ function TaskCard({ task }: { task: Task }) {
       </select>
       <br />
       <br />
-      <button type="button" onClick={() => navigate(`/tasks/${task.id}`)}>
-        Open Details
+      <button
+        className="button"
+        type="button"
+        onClick={() =>
+          navigate(`/tasks/${task.id}`, {
+            state: {
+              backgroundLocation: location,
+            },
+          })
+        }
+      >
+        Open details
       </button>
       <br />
       <br />
-      <button type="button" onClick={() => deleteTask(task.id)}>
-        Delete Task
-      </button>
+      {hasWRPermission && (
+        <button className="button" type="button" onClick={() => onDelete(task)}>
+          Delete task
+        </button>
+      )}
     </article>
   );
 }
-export default memo(TaskCard);
+export default memo(TaskCard); // memo lets to skip re-rendering the component if props haven't changed
+// htmlFor={`status-${task.id}`} ensures uniquness
 // ?? means null or undefined

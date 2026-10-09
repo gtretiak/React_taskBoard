@@ -1,0 +1,41 @@
+main {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 30px;
+}
+.dashboard {
+  width: 100%;
+}
+.toolbar {
+  position: sticky;
+  top: 60px;
+  display: flex;
+  padding: 12px 0;
+  flex-wrap: wrap;
+  align-items: center;
+  z-index: 800;
+  gap: 14px;
+  background: var(--color-background);
+}
+.task-actions {
+  display: flex;
+  align-items: center;
+}
+
+.task-filters {
+  display: inline-block;
+  flex-wrap: nowrap;
+  flex: 1;
+  align-items: center;
+  gap: 1px;
+}
+
+.form-group-inline {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.task-list {
+  width: 100%;
+}
